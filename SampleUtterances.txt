@@ -1,0 +1,9 @@
+GetProblem Give me an {Operator} problem with {Digits} digits
+GetProblem {Operator} with {Digits} digits
+GetProblem Start a {Operator} problem of {Digits} digits
+GetProblem Give me an {Operator} problem with {Digits} digit
+GetProblem {Operator} with {Digits} digit
+GetProblem Start a {Operator} problem of {Digits} digit
+
+GetAnswer The answer is {Answer}
+GetAnswer {Answer}

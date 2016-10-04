@@ -91,11 +91,7 @@ function onIntent(intentRequest, session, callback) {
     } else if ("AMAZON.YesIntent" === intentName) {     //Starts a new problem after one ends
         getWelcomeResponse(session, callback);
     } else if ("AMAZON.NoIntent" === intentName) {      //Ends game if user is finished
-        if (Object.keys(session.attributes).length > 0) {
-            handleFinishSessionRequest(intent, session, callback);
-        } else {
-            throw "Invalid Intent";
-        }
+       handleFinishSessionRequest(intent, session, callback);
     } else {                                            //Error if user gives an irrelevant answer
         throw "Invalid intent";
     }
@@ -133,9 +129,18 @@ function getWelcomeResponse(session, callback) {
     var repromptText = "Start by saying: Give me an operator problem with number digits. ";
     
     // Skip the explanation if user has already been through a problem
-    if (Object.keys(session.attributes).length > 0) {
-        speechOutput = "What type of problem would you like?"; 
+    if (session.attributes) {
+        if (Object.keys(session.attributes).length > 0) {
+        
+            if (session.attributes.Operator) {
+                sessionAttributes = session.attributes;
+                speechOutput = "Sorry, I didn't hear a number. Could you repeat your answer? ";
+            } else {
+                speechOutput = "What type of problem would you like?"; 
+            }
+        }
     }
+
 
     callback(sessionAttributes,
         buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
